@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberDTO {
+    private int id;
     private String  email;
     private  String pwd;
     private int age;

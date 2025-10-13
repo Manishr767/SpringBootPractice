@@ -47,6 +47,7 @@ public class MemberController {
 
        }else{
            System.out.println("try Again");
+           System.out.println("or donot try");
        }
 
         return "index";
@@ -64,6 +65,21 @@ public class MemberController {
         System.out.println("Fetched members: " + list.size());
         return "member";  //signInForm.html
     }
+
+    // UpdateMyProfile
+
+    @GetMapping("/updateMyProfile")
+    public String updateMyProfile(HttpSession session,Model model){
+        // get the user information from db
+        MemberDTO loginedMember = ( MemberDTO)session.getAttribute("loginUser");
+        MemberDTO member = memberService.findById(loginedMember.getId());
+        model.addAttribute("member",member);
+        return "updateMyProfile";
+
+
+    }
+
+
 
 
 

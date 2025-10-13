@@ -13,6 +13,7 @@ public class MemberService {
     @Autowired
     MemberDAO memberDAO;
 
+
     public void registNewMember(MemberDTO dto){
        memberDAO.insertMember(dto);
 
@@ -27,5 +28,11 @@ public class MemberService {
     public List<MemberDTO> getAllmembers() {
         List<MemberDTO> list = memberDAO.getAllMembers();
         return list;
+    }
+
+    public MemberDTO findById(int id) {
+        MemberDTO member = memberDAO.findById(id);
+        return  member;
+
     }
 }

@@ -58,6 +58,7 @@ public class MemberDAO {
                 ResultSet rowsInserted = pstmt.executeQuery();
                 System.out.println("welcome");
                 if (rowsInserted.next()) {
+                    member.setId(Integer.parseInt(rowsInserted.getString("id")));
                     member.setAge(Integer.parseInt(rowsInserted.getString("Age")));
                     member.setEmail(rowsInserted.getString("email"));
                     member.setPwd(rowsInserted.getString("pwd"));
@@ -65,6 +66,8 @@ public class MemberDAO {
                     System.out.println("this is a member");
                 } else {
                     System.out.println("this is not member");
+                    System.out.println("ok");
+
                 }
 
             } catch (SQLException e) {
@@ -102,4 +105,40 @@ public class MemberDAO {
         return members;
     }
 
+    public MemberDTO findById(int id) {
+        MemberDTO member = new MemberDTO();
+        try {
+            Class.forName(JDBC_DRIVER);
+
+            try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASSWORD);
+                 PreparedStatement pstmt = conn.prepareStatement("select * from member where id = ?")) {
+
+                pstmt.setInt(1, id);
+
+
+                ResultSet rowsInserted = pstmt.executeQuery();
+                System.out.println("welcome");
+                if (rowsInserted.next()) {
+                    member.setId(Integer.parseInt(rowsInserted.getString("id")));
+                    member.setAge(Integer.parseInt(rowsInserted.getString("Age")));
+                    member.setEmail(rowsInserted.getString("email"));
+                    member.setPwd(rowsInserted.getString("pwd"));
+
+                    System.out.println("this is a member");
+                } else {
+                    System.out.println("this is not member");
+                    System.out.println("ok");
+
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        return member;
+    }
 }
